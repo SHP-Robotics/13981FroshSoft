@@ -1,0 +1,4 @@
+#Tue Sep 17 20:50:58 PDT 2019
+base.0=C\:\\Users\\benco\\Documents\\SHP\\FTC\\13981FroshSoft\\TeamCode\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
