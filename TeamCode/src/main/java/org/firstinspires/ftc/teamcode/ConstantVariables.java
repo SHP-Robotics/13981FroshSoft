@@ -5,8 +5,8 @@ package org.firstinspires.ftc.teamcode;
  */
 
 public class ConstantVariables {
-    public static final double K_MARKER_SERVO_OPEN = 360; //values for servo motors not final
-    public static final double K_MARKER_SERVO_GRAB = 0.5; //values for servo motors not final
+    public static final double K_ARMRIGHT_SERVO_OPEN = 360; //values for servo motors not final
+    public static final double K_ARMRIGHT_SERVO_GRAB = 0.5; //values for servo motors not final
 
     public static final double K_ARMLEFT_SERVO_OPEN = 1;//values for servo motors not final
     public static final double K_ARMLEFT_SERVO_GRAB = 0.5;//values for servo motors not final

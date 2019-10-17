@@ -69,11 +69,11 @@ public class OurTeleOp extends BaseRobot {
         //left arm motor servo
         if(gamepad1.left_bumper) {
             set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_OPEN );
-            set_marker_servo(ConstantVariables.K_MARKER_SERVO_OPEN);
+            set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_OPEN);
 
         } else if (gamepad1.right_bumper){
             set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_GRAB);
-            set_marker_servo(ConstantVariables.K_MARKER_SERVO_GRAB);
+            set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_GRAB);
         }
 
         //emergency kill button
