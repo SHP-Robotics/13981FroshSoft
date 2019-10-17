@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 public class BaseRobot extends OpMode {
-    public DcMotor leftBackDriveMotor, rightBackDriveMotor, leftFrontDriveMotor, rightFrontDriveMotor, climbMotor, slideMotor;
-    public Servo marker_servo, armLeft_servo;
+    public DcMotor leftBackDriveMotor, rightBackDriveMotor, leftFrontDriveMotor, rightFrontDriveMotor, armLiftMotor, armSlideMotor;
+    public Servo armRight_servo, armLeft_servo;
     public ElapsedTime timer = new ElapsedTime();
     //Created by Chun on 1/26/19 for 10023. Edited by Ben on 10/14/19 for 13981
 
@@ -18,22 +18,30 @@ public class BaseRobot extends OpMode {
         leftBackDriveMotor = hardwareMap.get(DcMotor.class, "leftBackDriveMotor");
         rightBackDriveMotor = hardwareMap.get(DcMotor.class, "rightBackDriveMotor");
         leftFrontDriveMotor = hardwareMap.get(DcMotor.class, "leftFrontDriveMotor");
-        climbMotor = hardwareMap.get(DcMotor.class, "climbMotor");
-        slideMotor = hardwareMap.get(DcMotor.class, "slideMotor");
+        rightFrontDriveMotor = hardwareMap.get(DcMotor.class, "rightFrontDriveMotor");
+        armLiftMotor = hardwareMap.get(DcMotor.class, "armLiftMotor");
+        armSlideMotor = hardwareMap.get(DcMotor.class, "armSlideMotor");
 
-        marker_servo = hardwareMap.get(Servo.class, "marker_servo");
-        armLeft_servo = hardwareMap.get(Servo.class, "armLeft_servo");
+        armRight_servo = hardwareMap.get(Servo.class, "armRight_servo");
+        armLeft_servo = hardwareMap.get(Servo.class,    "armLeft_servo");
 
-        set_marker_servo(ConstantVariables.K_MARKER_SERVO_UP);
-        set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_IN);
+        set_marker_servo(ConstantVariables.K_MARKER_SERVO_OPEN);
+        set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_OPEN);
     }
 
     @Override
     public void start() {
         timer.reset();
         reset_drive_encoders();
-        reset_climb_encoders();
-        // not using "reset_intake_outtake_encoders();"
+        reset_armLftMotor_encoders();
+        reset_armSlideMotor_encoders();
+    }
+
+    public void stop() {
+        timer.reset();
+        reset_drive_encoders();
+        reset_armLftMotor_encoders();
+        reset_armSlideMotor_encoders();
     }
 
     @Override
@@ -44,23 +52,22 @@ public class BaseRobot extends OpMode {
         telemetry.addData("D02 Left Back Drive Motor Enc: ", get_left_back_drive_motor_enc());
         telemetry.addData("D03 Right Back Drive Motor Enc: ", get_right_back_drive_motor_enc());
 
-        telemetry.addData("D04 Climb Motor Enc: ", get_climb_motor_enc());
+        telemetry.addData("D04 Arm Lift Motor Enc: ", get_armLiftMotor_enc());
         telemetry.addData("D05 Slide Motor Enc: ", get_slide_motor_enc());
 
-        telemetry.addData("D08 Marker Servo Pos: ", marker_servo.getPosition());
-        telemetry.addData("D09 armLeft Servo Pos: ", armLeft_servo.getPosition());
+        telemetry.addData("D08 Arm Right Servo Pos: ", armRight_servo.getPosition());
+        telemetry.addData("D09 Arm Left Servo Pos: ", armLeft_servo.getPosition());
     }
 
-    public void climb(double power) {
+    public void setArmLiftMotor(double power) {
         double speed = Range.clip(power, -1, 1);
-        climbMotor.setPower(speed);
+        armLiftMotor.setPower(speed);
     }
 
     public void slide(double power) {
         double speed = Range.clip(power, -1, 1);
-        slideMotor.setPower(speed);
+        armSlideMotor.setPower(speed);
     }
-
 
     public boolean auto_drive(double power, double inches) {
         double TARGET_ENC = ConstantVariables.K_PPIN_DRIVE * inches;
@@ -168,7 +175,7 @@ public class BaseRobot extends OpMode {
 
     public void set_marker_servo(double pos) {
         double position = Range.clip(pos, 0, 1.0);
-        marker_servo.setPosition(position);
+        armRight_servo.setPosition(position);
     }
 
     public void set_armLeft_servo(double pos) {
@@ -188,10 +195,10 @@ public class BaseRobot extends OpMode {
         rightBackDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void reset_climb_encoders() {
-        climbMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    public void reset_armLftMotor_encoders() {
+        armLiftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        climbMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armLiftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public int get_left_front_drive_motor_enc() {
@@ -208,6 +215,12 @@ public class BaseRobot extends OpMode {
         return rightFrontDriveMotor.getCurrentPosition();
     }
 
+    public void reset_armSlideMotor_encoders() {
+        armSlideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        armSlideMotor .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
     public int get_left_back_drive_motor_enc() {
         if (leftBackDriveMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER) {
             leftBackDriveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -222,18 +235,20 @@ public class BaseRobot extends OpMode {
         return rightBackDriveMotor.getCurrentPosition();
     }
 
-    public int get_climb_motor_enc() {
-        if (climbMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER) {
-            climbMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    public int get_armLiftMotor_enc() {
+        if (armLiftMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER) {
+            armLiftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-        return climbMotor.getCurrentPosition();
+        return armLiftMotor.getCurrentPosition();
     }
 
     public int get_slide_motor_enc() {
-        if (slideMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER) {
-            slideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (armSlideMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER) {
+            armSlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-        return slideMotor.getCurrentPosition();
+        return armSlideMotor.getCurrentPosition();
+
+
     }
 }
 

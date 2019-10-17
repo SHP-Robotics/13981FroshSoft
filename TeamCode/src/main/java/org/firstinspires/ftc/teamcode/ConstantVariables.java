@@ -1,19 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
 /**
- * Created by Chun on Jan 26, 2019 for 10023.
+ * Created by Chun on Jan 26, 2019 for 10023. Adapted by Ben on 10/14/19
  */
 
 public class ConstantVariables {
-    public static final double K_MARKER_SERVO_UP = 0.72;
-    public static final double K_MARKER_SERVO_DOWN = 0.05;
+    public static final double K_MARKER_SERVO_OPEN = 360; //values for servo motors not final
+    public static final double K_MARKER_SERVO_GRAB = 0.5; //values for servo motors not final
 
-    public static final double K_ARMLEFT_SERVO_OUT = 0;
-    public static final double K_ARMLEFT_SERVO_IN = 0.65;
+    public static final double K_ARMLEFT_SERVO_OPEN = 1;//values for servo motors not final
+    public static final double K_ARMLEFT_SERVO_GRAB = 0.5;//values for servo motors not final
 
     public static final int K_PPR_DRIVE = 1120;
     public static final double K_DRIVE_WHEEL_DIA = 4;
-    public static final double K_DRIVE_DIA = 16.5;
+    public static final double K_DRIVE_DIA = 16.5;//Dont know what this is.
 
     public static final double K_DRIVE_WHEEL_CIRCUMFERENCE = K_DRIVE_WHEEL_DIA * Math.PI; //12.56637
     public static final double K_PPIN_DRIVE = K_PPR_DRIVE / K_DRIVE_WHEEL_CIRCUMFERENCE; //89.1267725
