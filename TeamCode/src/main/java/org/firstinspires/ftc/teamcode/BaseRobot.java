@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 public class BaseRobot extends OpMode {
+
     public DcMotor leftBackDriveMotor, rightBackDriveMotor, leftFrontDriveMotor, rightFrontDriveMotor, armLiftMotor, armSlideMotor;
     public Servo armRight_servo, armLeft_servo;
     public ElapsedTime timer = new ElapsedTime();
@@ -23,13 +24,14 @@ public class BaseRobot extends OpMode {
         armSlideMotor = hardwareMap.get(DcMotor.class, "armSlideMotor");
 
         armRight_servo = hardwareMap.get(Servo.class, "armRight_servo");
-        armLeft_servo = hardwareMap.get(Servo.class,    "armLeft_servo");
+        armLeft_servo = hardwareMap.get(Servo.class, "armLeft_servo");
 
-        set_marker_servo(ConstantVariables.K_MARKER_SERVO_OPEN);
-        set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_OPEN);
+        set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_UP);
+        set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_IN);
+
     }
 
-    @Override
+    @Overridex
     public void start() {
         timer.reset();
         reset_drive_encoders();
@@ -57,7 +59,6 @@ public class BaseRobot extends OpMode {
 
         telemetry.addData("D08 Arm Right Servo Pos: ", armRight_servo.getPosition());
         telemetry.addData("D09 Arm Left Servo Pos: ", armLeft_servo.getPosition());
-    }
 
     public void setArmLiftMotor(double power) {
         double speed = Range.clip(power, -1, 1);
@@ -173,7 +174,7 @@ public class BaseRobot extends OpMode {
         rightBackDriveMotor.setPower(-rightPower);
     }
 
-    public void set_marker_servo(double pos) {
+    public void set_armRight_servo(double pos) {
         double position = Range.clip(pos, 0, 1.0);
         armRight_servo.setPosition(position);
     }
