@@ -42,11 +42,12 @@ public class OurTeleOp extends BaseRobot {
     @Override
     public void loop() {
         super.loop();
-        float outRightStickY = getCurveY(gamepad1.right_stick_y);
-        float outLeftStickY = getCurveY(gamepad1.left_stick_y);
+       /* float outRightStickY = getCurveY(gamepad1.right_stick_y);
+        float outLeftStickY = getCurveY(gamepad1.left_stick_x);
         float outRightStickX = getCurveY(gamepad1.right_stick_y);
+        float outLeftStickX = getCurveY(gamepad1.left_stick_x);*/
         //drive train
-        tankanum_drive(outRightStickY,outLeftStickY, outRightStickX);
+        tankanum_drive(gamepad1.right_stick_y, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
         //lower or raise lift motor
         if(gamepad1.dpad_up) {
@@ -68,12 +69,12 @@ public class OurTeleOp extends BaseRobot {
 
         //left arm motor servo
         if(gamepad1.left_bumper) {
-            set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_OPEN );
-            set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_OPEN);
+            set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_UP);
+            set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_UP);
 
         } else if (gamepad1.right_bumper){
-            set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_GRAB);
-            set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_GRAB);
+            set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_DOWN);
+            set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_DOWN);
         }
 
         //emergency kill button

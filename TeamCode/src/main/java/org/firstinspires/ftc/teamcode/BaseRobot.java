@@ -26,8 +26,8 @@ public class BaseRobot extends OpMode {
         armRight_servo = hardwareMap.get(Servo.class, "armRight_servo");
         armLeft_servo = hardwareMap.get(Servo.class, "armLeft_servo");
 
-        set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_OPEN);
-        set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_OPEN);
+        set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_UP);
+        set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_UP);
 
 
     }

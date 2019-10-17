@@ -1,0 +1,4 @@
+#Thu Oct 17 13:40:24 PDT 2019
+base.0=/Users/ayaan/Documents/GitHub/13981FroshSoft/TeamCode/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
