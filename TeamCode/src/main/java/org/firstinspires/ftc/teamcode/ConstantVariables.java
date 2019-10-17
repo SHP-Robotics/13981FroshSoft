@@ -5,11 +5,11 @@ package org.firstinspires.ftc.teamcode;
  */
 
 public class ConstantVariables {
-    public static final double K_ARMRIGHT_SERVO_OPEN = 360; //values for servo motors not final
-    public static final double K_ARMRIGHT_SERVO_GRAB = 0.5; //values for servo motors not final
+    public static final double K_ARMRIGHT_SERVO_OPEN = 0.72; //values for servo motors not final; from 10023
+    public static final double K_ARMRIGHT_SERVO_GRAB = 0.05; //values for servo motors not final; from 10023
 
-    public static final double K_ARMLEFT_SERVO_OPEN = 1;//values for servo motors not final
-    public static final double K_ARMLEFT_SERVO_GRAB = 0.5;//values for servo motors not final
+    public static final double K_ARMLEFT_SERVO_OPEN = 0.72;//values for servo motors not final; from 10023
+    public static final double K_ARMLEFT_SERVO_GRAB = 0.05;//values for servo motors not final; from 10023
 
     public static final int K_PPR_DRIVE = 1120;
     public static final double K_DRIVE_WHEEL_DIA = 4;
