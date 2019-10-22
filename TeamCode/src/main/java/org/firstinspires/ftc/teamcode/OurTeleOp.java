@@ -26,23 +26,23 @@ public class OurTeleOp extends BaseRobot {
     }
 
 
-
-    //public float getCurveY(float X){
-      //  float listX[] = new float[] {0.0f, 0.10f, 0.20f, 0.30f, 0.4f, 0.50f, 0.60f, 0.70f, 0.80f, 0.9f, 1.0f};
-        //float listY[] = new float[] {0.0f, 0.15f, 0.18f, 0.25f, 0.5f, 0.70f, 0.85f, 0.90f, 0.95f, 1.0f, 1.0f};
-        //X = Range.clip(X, 0.0f, 1.0f);
-        //int i = 0;
-        //while (i<10){
-            //if (X >= listX[i] && X < listX[i + 1]) {
-                //float delta = listX[i +1] - listX[i];
-                //float coeff = (X - listX[i]) / delta;
-                //float Y = (coeff * (listY[i + 1] - listY[i])) + listY[i];
-                //return Y;
-           // }
-            //i = i +1;
-        //}
-        //return 0; // error if no movement
-    //}
+     // curve - doesnt work
+    /*public float getCurveY(float X){
+      float listX[] = new float[] {0.0f, 0.10f, 0.20f, 0.30f, 0.4f, 0.50f, 0.60f, 0.70f, 0.80f, 0.9f, 1.0f};
+        float listY[] = new float[] {0.0f, 0.15f, 0.18f, 0.25f, 0.5f, 0.70f, 0.85f, 0.90f, 0.95f, 1.0f, 1.0f};
+        X = Range.clip(X, 0.0f, 1.0f);
+        int i = 0;
+        while (i<10){
+            if (X >= listX[i] && X < listX[i + 1]) {
+                float delta = listX[i +1] - listX[i];
+                float coeff = (X - listX[i]) / delta;
+                float Y = (coeff * (listY[i + 1] - listY[i])) + listY[i];
+                return Y;
+            }
+           i = i +1;
+        }
+        return 0; // error if no movement
+    }*/
 
 
     @Override
@@ -50,11 +50,12 @@ public class OurTeleOp extends BaseRobot {
 
         super.loop();
 
+        
         /*super.loop();
         float outRightStickY = getCurveY(gamepad1.right_stick_y);
         float outLeftStickY = getCurveY(gamepad1.left_stick_y);
-        float outRightStickX = getCurveY(gamepad1.right_stick_y); */
-        //drive train
+        float outRightStickX = getCurveY(gamepad1.right_stick_y);
+           drive train*/
 
         tankanum_drive(gamepad1.right_stick_y,gamepad1.left_stick_y, gamepad1.right_stick_x);
 
