@@ -26,8 +26,8 @@ public class BaseRobot extends OpMode {
         armRight_servo = hardwareMap.get(Servo.class, "armRight_servo");
         armLeft_servo = hardwareMap.get(Servo.class, "armLeft_servo");
 
-        set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_UP);
-        set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_UP);
+        set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_OPEN);
+        set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_OPEN);
 
 
     }
@@ -56,7 +56,7 @@ public class BaseRobot extends OpMode {
         telemetry.addData("D03 Right Back Drive Motor Enc: ", get_right_back_drive_motor_enc());
 
         telemetry.addData("D04 Arm Lift Motor Enc: ", get_armLiftMotor_enc());
-        telemetry.addData("D05 Slide Motor Enc: ", get_slide_motor_enc());
+        telemetry.addData("D05 Arm Slide Motor Enc: ", get_slide_motor_enc());
 
         telemetry.addData("D08 Arm Right Servo Pos: ", armRight_servo.getPosition());
         telemetry.addData("D09 Arm Left Servo Pos: ", armLeft_servo.getPosition());
