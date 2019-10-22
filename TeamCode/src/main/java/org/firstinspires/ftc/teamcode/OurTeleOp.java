@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.Const;
+
 /*
 Created by Chun on 1/26/19 for 10023. Edited by Ben on 10/14/19 for 13981
 */
@@ -14,6 +16,8 @@ public class OurTeleOp extends BaseRobot {
     @Override
     public void init() {
         super.init();
+        set_armLeft_servo(0);
+        set_armRight_servo(1);// 0 will be replaced with retracted position
     }
 
     @Override
@@ -21,33 +25,39 @@ public class OurTeleOp extends BaseRobot {
         super.start();
     }
 
-    public float getCurveY(float X){
-        float listX[] = new float[] {0.0f, 0.10f, 0.20f, 0.30f, 0.4f, 0.50f, 0.60f, 0.70f, 0.80f, 0.9f, 1.0f};
-        float listY[] = new float[] {0.0f, 0.15f, 0.18f, 0.25f, 0.5f, 0.70f, 0.85f, 0.90f, 0.95f, 1.0f, 1.0f};
-        X = Range.clip(X, 0.0f, 1.0f);
-        int i = 0;
-        while (i<10){
-            if (X >= listX[i] && X < listX[i + 1]) {
-                float delta = listX[i +1] - listX[i];
-                float coeff = (X - listX[i]) / delta;
-                float Y = (coeff * (listY[i + 1] - listY[i])) + listY[i];
-                return Y;
-            }
-            i = i +1;
-        }
-        return 0; // error if no movement
-    }
+
+
+    //public float getCurveY(float X){
+      //  float listX[] = new float[] {0.0f, 0.10f, 0.20f, 0.30f, 0.4f, 0.50f, 0.60f, 0.70f, 0.80f, 0.9f, 1.0f};
+        //float listY[] = new float[] {0.0f, 0.15f, 0.18f, 0.25f, 0.5f, 0.70f, 0.85f, 0.90f, 0.95f, 1.0f, 1.0f};
+        //X = Range.clip(X, 0.0f, 1.0f);
+        //int i = 0;
+        //while (i<10){
+            //if (X >= listX[i] && X < listX[i + 1]) {
+                //float delta = listX[i +1] - listX[i];
+                //float coeff = (X - listX[i]) / delta;
+                //float Y = (coeff * (listY[i + 1] - listY[i])) + listY[i];
+                //return Y;
+           // }
+            //i = i +1;
+        //}
+        //return 0; // error if no movement
+    //}
 
 
     @Override
     public void loop() {
+
         super.loop();
-       /* float outRightStickY = getCurveY(gamepad1.right_stick_y);
-        float outLeftStickY = getCurveY(gamepad1.left_stick_x);
-        float outRightStickX = getCurveY(gamepad1.right_stick_y);
-        float outLeftStickX = getCurveY(gamepad1.left_stick_x);*/
+
+        /*super.loop();
+        float outRightStickY = getCurveY(gamepad1.right_stick_y);
+        float outLeftStickY = getCurveY(gamepad1.left_stick_y);
+        float outRightStickX = getCurveY(gamepad1.right_stick_y); */
         //drive train
-        tankanum_drive(gamepad1.right_stick_y, gamepad1.left_stick_y, gamepad1.right_stick_x);
+
+        tankanum_drive(gamepad1.right_stick_y,gamepad1.left_stick_y, gamepad1.right_stick_x);
+
 
         //lower or raise lift motor
         if(gamepad1.dpad_up) {
@@ -67,17 +77,20 @@ public class OurTeleOp extends BaseRobot {
             slide(0);
         }
 
-        //left arm motor servo
+        //Servo Motors
         if(gamepad1.left_bumper) {
-            set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_UP);
-            set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_UP);
+
+          set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_OPEN );
+          set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_OPEN);
 
         } else if (gamepad1.right_bumper){
-            set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_DOWN);
-            set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_DOWN);
-        }
+            set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_GRAB);
+            set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_GRAB);
 
-        //emergency kill button
+
+        }
+        
+        //emergency kill button that still needs to be done 
         if (gamepad1.start && gamepad1.back) {
 
         }
