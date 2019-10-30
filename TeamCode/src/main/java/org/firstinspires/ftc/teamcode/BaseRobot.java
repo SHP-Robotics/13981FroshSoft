@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.util.Range;
 
 public class BaseRobot extends OpMode {
 
-    public DcMotor leftBackDriveMotor, rightBackDriveMotor, leftFrontDriveMotor, rightFrontDriveMotor, armLiftMotor, armSlideMotor;
-    public Servo armRight_servo, armLeft_servo;
+    public DcMotor leftBackDriveMotor, rightBackDriveMotor, leftFrontDriveMotor, rightFrontDriveMotor, armLiftMotor, armSlideMotor, armClampMotor;
+    // public Servo armRight_servo, armLeft_servo;
     public ElapsedTime timer = new ElapsedTime();
     //Created by Chun on 1/26/19 for 10023. Edited by Ben on 10/14/19 for 13981
 
@@ -22,12 +22,13 @@ public class BaseRobot extends OpMode {
         rightFrontDriveMotor = hardwareMap.get(DcMotor.class, "rightFrontDriveMotor");
         armLiftMotor = hardwareMap.get(DcMotor.class, "armLiftMotor");
         armSlideMotor = hardwareMap.get(DcMotor.class, "armSlideMotor");
+        armClampMotor = hardwareMap.get(DcMotor.class, "armClampMotor");
 
-        armRight_servo = hardwareMap.get(Servo.class, "armRight_servo");
-        armLeft_servo = hardwareMap.get(Servo.class, "armLeft_servo");
+        /*armRight_servo = hardwareMap.get(Servo.class, "armRight_servo");
+        armLeft_servo = hardwareMap.get(Servo.class, "armLeft_servo");*/
 
-        set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_OPEN);
-        set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_OPEN);
+        /*set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_OPEN);
+        set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_OPEN);*/
 
 
     }
@@ -38,6 +39,7 @@ public class BaseRobot extends OpMode {
         reset_drive_encoders();
         reset_armLftMotor_encoders();
         reset_armSlideMotor_encoders();
+
     }
 
     public void stop() {
@@ -57,10 +59,13 @@ public class BaseRobot extends OpMode {
 
         telemetry.addData("D04 Arm Lift Motor Enc: ", get_armLiftMotor_enc());
         telemetry.addData("D05 Arm Slide Motor Enc: ", get_slide_motor_enc());
+        telemetry.addData("D010 Arm Clamp Motor Enc: ", get_armClampMotor_enc());
 
-        telemetry.addData("D08 Arm Right Servo Pos: ", armRight_servo.getPosition());
-        telemetry.addData("D09 Arm Left Servo Pos: ", armLeft_servo.getPosition());
+        /*telemetry.addData("D08 Arm Right Servo Pos: ", armRight_servo.getPosition());
+        telemetry.addData("D09 Arm Left Servo Pos: ", armLeft_servo.getPosition());*/
+
     }
+
     public void setArmLiftMotor(double power) {
         double speed = Range.clip(power, -1, 1);
         armLiftMotor.setPower(speed);
@@ -69,7 +74,15 @@ public class BaseRobot extends OpMode {
     public void slide(double power) {
         double speed = Range.clip(power, -1, 1);
         armSlideMotor.setPower(speed);
+
     }
+
+    public void setArmClampMotor(double power) {
+        double speed = Range.clip(power, -1, 1);
+        armClampMotor.setPower(speed);
+
+    }
+
 
     public boolean auto_drive(double power, double inches) {
         double TARGET_ENC = ConstantVariables.K_PPIN_DRIVE * inches;
@@ -175,7 +188,7 @@ public class BaseRobot extends OpMode {
         rightBackDriveMotor.setPower(-rightPower);
     }
 
-    public void set_armRight_servo(double pos) {
+    /*public void set_armRight_servo(double pos) {
         double position = Range.clip(pos, 0, 1.0);
         armRight_servo.setPosition(position);
     }
@@ -183,7 +196,7 @@ public class BaseRobot extends OpMode {
     public void set_armLeft_servo(double pos) {
         double position = Range.clip(pos, 0, 1.0);
         armLeft_servo.setPosition(position);
-    }
+    }*/
 
     public void reset_drive_encoders() {
         leftFrontDriveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -199,7 +212,6 @@ public class BaseRobot extends OpMode {
 
     public void reset_armLftMotor_encoders() {
         armLiftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
         armLiftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -219,8 +231,7 @@ public class BaseRobot extends OpMode {
 
     public void reset_armSlideMotor_encoders() {
         armSlideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        armSlideMotor .setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armSlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public int get_left_back_drive_motor_enc() {
@@ -249,8 +260,13 @@ public class BaseRobot extends OpMode {
             armSlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         return armSlideMotor.getCurrentPosition();
+    }
 
-
+    public int get_armClampMotor_enc() {
+        if (armClampMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER) {
+            armClampMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+        return armSlideMotor.getCurrentPosition();
     }
 }
 

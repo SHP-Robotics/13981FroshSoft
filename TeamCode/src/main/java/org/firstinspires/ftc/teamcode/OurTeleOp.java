@@ -16,8 +16,8 @@ public class OurTeleOp extends BaseRobot {
     @Override
     public void init() {
         super.init();
-        set_armLeft_servo(0);
-        set_armRight_servo(1);// 0 will be replaced with retracted position
+        /*set_armLeft_servo(0);
+        set_armRight_servo(1);// 0 will be replaced with retracted position*/
     }
 
     @Override
@@ -50,7 +50,7 @@ public class OurTeleOp extends BaseRobot {
 
         super.loop();
 
-        
+
         /*super.loop();
         float outRightStickY = getCurveY(gamepad1.right_stick_y);
         float outLeftStickY = getCurveY(gamepad1.left_stick_y);
@@ -61,24 +61,24 @@ public class OurTeleOp extends BaseRobot {
 
 
         //lower or raise lift motor
-        if(gamepad1.dpad_up) {
+        if(gamepad1.dpad_up || gamepad1.b) {
             setArmLiftMotor(1);
-        } else if (gamepad1.dpad_down) {
+        } else if (gamepad1.dpad_down || gamepad1.a) {
             setArmLiftMotor(-1);
         } else {
             setArmLiftMotor(0);
         }
 
         //slide motor
-        if(gamepad1.b || gamepad1.dpad_right) {
+        if(gamepad1.dpad_left || gamepad1.x) {
             slide(1);
-        } else if (gamepad1.a || gamepad1.dpad_left) {
+        } else if (gamepad1.dpad_right || gamepad1.y) {
             slide(-1);
         } else {
             slide(0);
         }
 
-        //Servo Motors
+       /* //Servo Motors
         if(gamepad1.left_bumper) {
 
           set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_OPEN );
@@ -87,10 +87,17 @@ public class OurTeleOp extends BaseRobot {
         } else if (gamepad1.right_bumper){
             set_armLeft_servo(ConstantVariables.K_ARMLEFT_SERVO_GRAB);
             set_armRight_servo(ConstantVariables.K_ARMRIGHT_SERVO_GRAB);
-
-
+*/
+        if (gamepad1.left_bumper) {
+            setArmClampMotor(-1);
+        } else if (gamepad1.right_bumper) {
+            setArmClampMotor(1);
+        } else {
+            setArmClampMotor(0);
         }
-        
+
+
+
         //emergency kill button that still needs to be done 
         if (gamepad1.start && gamepad1.back) {
 
