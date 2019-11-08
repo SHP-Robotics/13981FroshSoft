@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Const;
 
 /*
-Created by Chun on 1/26/19 for 10023. Edited by Ben on 10/14/19 for 13981
+Created by Chun on 1/26/19 for 10023. Edited by Team 13981 on 10/14/19.
 */
 
 @TeleOp
@@ -71,11 +71,11 @@ public class OurTeleOp extends BaseRobot {
 
         //slide motor
         if(gamepad1.dpad_left || gamepad1.x) {
-            slide(1);
+            setArmLiftMotor2(1);
         } else if (gamepad1.dpad_right || gamepad1.y) {
-            slide(-1);
+            setArmLiftMotor2(-1);
         } else {
-            slide(0);
+            setArmLiftMotor2(0);
         }
 
        /* //Servo Motors

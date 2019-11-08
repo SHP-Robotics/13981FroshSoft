@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 /**
- * Created by Chun on Jan 26, 2019 for 10023. Adapted by ben for 13981 on Oct 14, 2019
+ * Created by Chun on Jan 26, 2019 for 10023. Adapted Team 13981 on Oct 14, 2019.
  */
 
 public class ConstantVariables {

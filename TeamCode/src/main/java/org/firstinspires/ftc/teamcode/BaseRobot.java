@@ -8,10 +8,10 @@ import com.qualcomm.robotcore.util.Range;
 
 public class BaseRobot extends OpMode {
 
-    public DcMotor leftBackDriveMotor, rightBackDriveMotor, leftFrontDriveMotor, rightFrontDriveMotor, armLiftMotor, armSlideMotor, armClampMotor;
+    public DcMotor leftBackDriveMotor, rightBackDriveMotor, leftFrontDriveMotor, rightFrontDriveMotor, armLiftMotor, armLiftMotor2, armClampMotor;
     // public Servo armRight_servo, armLeft_servo;
     public ElapsedTime timer = new ElapsedTime();
-    //Created by Chun on 1/26/19 for 10023. Edited by Ben on 10/14/19 for 13981
+    //Created by Chun on 1/26/19 for 10023. Adapted by Team 13981.
 
 
     @Override
@@ -21,7 +21,7 @@ public class BaseRobot extends OpMode {
         leftFrontDriveMotor = hardwareMap.get(DcMotor.class, "leftFrontDriveMotor");
         rightFrontDriveMotor = hardwareMap.get(DcMotor.class, "rightFrontDriveMotor");
         armLiftMotor = hardwareMap.get(DcMotor.class, "armLiftMotor");
-        armSlideMotor = hardwareMap.get(DcMotor.class, "armSlideMotor");
+        armLiftMotor2 = hardwareMap.get(DcMotor.class, "armLiftMotor2");
         armClampMotor = hardwareMap.get(DcMotor.class, "armClampMotor");
 
         /*armRight_servo = hardwareMap.get(Servo.class, "armRight_servo");
@@ -38,7 +38,7 @@ public class BaseRobot extends OpMode {
         timer.reset();
         reset_drive_encoders();
         reset_armLftMotor_encoders();
-        reset_armSlideMotor_encoders();
+        reset_armLiftMotor2_encoders();
 
     }
 
@@ -46,7 +46,7 @@ public class BaseRobot extends OpMode {
         timer.reset();
         reset_drive_encoders();
         reset_armLftMotor_encoders();
-        reset_armSlideMotor_encoders();
+        reset_armLiftMotor2_encoders();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class BaseRobot extends OpMode {
         telemetry.addData("D03 Right Back Drive Motor Enc: ", get_right_back_drive_motor_enc());
 
         telemetry.addData("D04 Arm Lift Motor Enc: ", get_armLiftMotor_enc());
-        telemetry.addData("D05 Arm Slide Motor Enc: ", get_slide_motor_enc());
+        telemetry.addData("D05 Arm Lift Motor 2 Enc: ", get_armLiftMotor2_enc());
         telemetry.addData("D010 Arm Clamp Motor Enc: ", get_armClampMotor_enc());
 
         /*telemetry.addData("D08 Arm Right Servo Pos: ", armRight_servo.getPosition());
@@ -71,9 +71,9 @@ public class BaseRobot extends OpMode {
         armLiftMotor.setPower(speed);
     }
 
-    public void slide(double power) {
+    public void setArmLiftMotor2(double power) {
         double speed = Range.clip(power, -1, 1);
-        armSlideMotor.setPower(speed);
+        armLiftMotor2.setPower(speed);
 
     }
 
@@ -229,9 +229,9 @@ public class BaseRobot extends OpMode {
         return rightFrontDriveMotor.getCurrentPosition();
     }
 
-    public void reset_armSlideMotor_encoders() {
-        armSlideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armSlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    public void reset_armLiftMotor2_encoders() {
+        armLiftMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armLiftMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public int get_left_back_drive_motor_enc() {
@@ -255,18 +255,18 @@ public class BaseRobot extends OpMode {
         return armLiftMotor.getCurrentPosition();
     }
 
-    public int get_slide_motor_enc() {
-        if (armSlideMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER) {
-            armSlideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    public int get_armLiftMotor2_enc() {
+        if (armLiftMotor2.getMode() != DcMotor.RunMode.RUN_USING_ENCODER) {
+            armLiftMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-        return armSlideMotor.getCurrentPosition();
+        return armLiftMotor2.getCurrentPosition();
     }
 
     public int get_armClampMotor_enc() {
         if (armClampMotor.getMode() != DcMotor.RunMode.RUN_USING_ENCODER) {
             armClampMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-        return armSlideMotor.getCurrentPosition();
+        return armClampMotor.getCurrentPosition();
     }
 }
 
