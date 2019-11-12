@@ -11,14 +11,15 @@ import java.io.UnsupportedEncodingException;
 @Autonomous
 public class CenterBlock extends BaseRobot {
 
+    PixyCam pixyCam;
+    PixyBlockList blocks1;
     ElapsedTime elapsedTime = new ElapsedTime();
     ElapsedTime elapsedTime2 = new ElapsedTime();
-    PixyBlockList blocks1;
     boolean isCentered = false;
     boolean isCloseEnough = false;
-    PrintWriter file;
     PixyBlock Block;
-    PixyCam pixyCam;
+    PrintWriter file;
+
 
     @Override
     //gets bot away from wall and to starting position.
