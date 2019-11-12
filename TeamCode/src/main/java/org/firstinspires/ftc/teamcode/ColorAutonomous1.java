@@ -4,13 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
-/*
- * Created by Chun on 1/26/19 for 10023. Adapted by Team 10023 on 11/4/19
- */
+
+// Template created by Chun on 1/26/19 for 10023. Made by Team 13981 on 10/11/19
+
 
 /*
     Other team: will be moving loading zone
-    TODO: confirm with team where loading zone will be (where we want it vs starting area)
+    TODO: - declare variable, set variable to encoder value of motor in order to track distance
+          - do 0.2 power for auto drive so it will line up properly (it just works with it)
 
     One camera for blocks (color) [ could also be angled to see ground for loading zone ]
     One camera for what you are holding (is holding / is not holding)
@@ -51,12 +52,25 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
     Stage 5: go back to origin and start again from stage 0 (set stage == 0)
  */
+/* bros idea of how it should work:
+    mecanum.set_power(1);
+    mecanum.go_distance(20);
+       if( mecaum.reached_destination) {reset drivers and power of mecanum};
 
+    this is the starting stage:
+    set power to 1, distance to 20, and this will loop until it has reached distance
+    once reached, internal function sets motor power to 0, and we reset encoders, and we move to next stage
+*/
 @Autonomous
 @Disabled
 
 public class ColorAutonomous1 extends BaseRobot {
     private int stage = 0;
+
+    private int redColor = 12;
+    private int blueColor = 50;
+
+    private int distanceToBlocks = 20;
 
     @Override
     public void init() {
@@ -72,33 +86,56 @@ public class ColorAutonomous1 extends BaseRobot {
     public void loop() {
         super.loop();
         switch (stage) {
+            // Drive forward from the corner and stop
             case 0:
-                //mecanum.set_power(1);
-                //mecanum.go_distance(20);
-                //if( mecaum.reached_destination) {reset drivers and power of mecanum};
-
-                // this is the starting stage:
-                // set power to 1, distance to 20, and this will loop until it has reached distance
-                // once reached, internal function sets motor power to 0, and we reset encoders, and we move to next stage
-                if (auto_drive(1, 20)) {
-                    // declare variable set variable to encoder value of motor
-                    // do 0.2 power for auto drive so it will line up properly 
+                if (auto_drive(1, distanceToBlocks)) {
                     reset_drive_encoders();
-                    stage++;
                 }
-                break;
 
             case 1:
-                //move sideways and scan
-            /*case 1:
-                if (auto_turn(0.6, 360)) {
-                    reset_drive_encoders();
-                    stage++;
+               /*while (auto_mecanum(1, 50)) {
+                    if (checkBlack(redColor, blueColor)) {
+                        reset_drive_encoders();
+                        stage++;
+                    } // else if auto mecanum -1 and 50 then reset encoders and stage =1
                 }
-                break;*/
+                if (auto_mecanum(-1, 50)) {
+                    reset_drive_encoders();
+                    stage = 1;
+                }
+
+                OR*/
+
+                if (auto_mecanum(1, 50) || checkBlackColor(redColor, blueColor)) {
+                    stage++;
+                    reset_drive_encoders();
+                } else if (auto_mecanum(-1, 50)) {
+                    stage = 1;
+                    reset_drive_encoders();
+                }
+
+
+
+            case 2:
+                // adjust where its going
+                if (auto_drive(0.2, 5)) {
+                    reset_drive_encoders();
+                }
+
+            case 3:
+
+
+
             // while ongoing stage, cases will return false -> break -> next iteration of loops
             default:
                 break;
         }
     }
 }
+//move sideways and scan
+            /*case 1:
+                if (auto_turn(0.6, 360)) {
+                    reset_drive_encoders();
+                    stage++;
+                }
+                break;*/

@@ -5,12 +5,7 @@ package org.firstinspires.ftc.teamcode;
  */
 
 public class ConstantVariables {
-    
-    public static final double K_ARMRIGHT_SERVO_OPEN = 1; 
-    public static final double K_ARMRIGHT_SERVO_GRAB = 0;
 
-    public static final double K_ARMLEFT_SERVO_OPEN = 0;
-    public static final double K_ARMLEFT_SERVO_GRAB = 1;
 
 
     public static final int K_PPR_DRIVE = 1120;

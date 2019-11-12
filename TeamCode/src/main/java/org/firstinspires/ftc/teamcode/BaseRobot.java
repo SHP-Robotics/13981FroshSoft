@@ -10,7 +10,7 @@ public class BaseRobot extends OpMode {
 
     public DcMotor leftBackDriveMotor, rightBackDriveMotor, leftFrontDriveMotor, rightFrontDriveMotor, armLiftMotor, armLiftMotor2, armClampMotor;
     // public Servo armRight_servo, armLeft_servo;
-    public ColorSensor colorBlock
+    public ColorSensor colorBlock;
     public ElapsedTime timer = new ElapsedTime();
     //Created by Chun on 1/26/19 for 10023. Adapted by Team 13981.
 
@@ -90,6 +90,9 @@ public class BaseRobot extends OpMode {
 
     }
 
+    public boolean checkBlackColor(int red, int blue) {
+        return blue > (3.0/4)*red;
+    }
 
     public boolean auto_drive(double power, double inches) {
         double TARGET_ENC = ConstantVariables.K_PPIN_DRIVE * inches;
@@ -275,9 +278,6 @@ public class BaseRobot extends OpMode {
             armClampMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         return armClampMotor.getCurrentPosition();
-    }
-    public boolean checkBlack(int red, int blue) {
-        return blue > (3.0/4)*red;
     }
 }
 
