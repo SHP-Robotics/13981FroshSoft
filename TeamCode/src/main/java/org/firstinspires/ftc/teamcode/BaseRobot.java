@@ -2,14 +2,15 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 public class BaseRobot extends OpMode {
 
     public DcMotor leftBackDriveMotor, rightBackDriveMotor, leftFrontDriveMotor, rightFrontDriveMotor, armLiftMotor, armLiftMotor2, armClampMotor;
     // public Servo armRight_servo, armLeft_servo;
+    public ColorSensor colorBlock
     public ElapsedTime timer = new ElapsedTime();
     //Created by Chun on 1/26/19 for 10023. Adapted by Team 13981.
 
@@ -23,6 +24,7 @@ public class BaseRobot extends OpMode {
         armLiftMotor = hardwareMap.get(DcMotor.class, "armLiftMotor");
         armLiftMotor2 = hardwareMap.get(DcMotor.class, "armLiftMotor2");
         armClampMotor = hardwareMap.get(DcMotor.class, "armClampMotor");
+        colorBlock = hardwareMap.get(ColorSensor.class, "colorSensorBlock");
 
         /*armRight_servo = hardwareMap.get(Servo.class, "armRight_servo");
         armLeft_servo = hardwareMap.get(Servo.class, "armLeft_servo");*/
@@ -33,12 +35,14 @@ public class BaseRobot extends OpMode {
 
     }
 
+
     @Override
     public void start() {
         timer.reset();
         reset_drive_encoders();
         reset_armLftMotor_encoders();
         reset_armLiftMotor2_encoders();
+        colorBlock.enableLed(true);
 
     }
 
@@ -61,6 +65,9 @@ public class BaseRobot extends OpMode {
         telemetry.addData("D05 Arm Lift Motor 2 Enc: ", get_armLiftMotor2_enc());
         telemetry.addData("D010 Arm Clamp Motor Enc: ", get_armClampMotor_enc());
 
+        telemetry.addData("D011 Color Sensor Block Red", colorBlock.red());
+        telemetry.addData("D011 Color Sensor Block Blue", colorBlock.blue());
+        telemetry.addData("D011 Color Sensor Block Green", colorBlock.green());
         /*telemetry.addData("D08 Arm Right Servo Pos: ", armRight_servo.getPosition());
         telemetry.addData("D09 Arm Left Servo Pos: ", armLeft_servo.getPosition());*/
 
@@ -153,6 +160,7 @@ public class BaseRobot extends OpMode {
         rightFrontDriveMotor.setPower(rightFrontPower);
         rightBackDriveMotor.setPower(rightBackPower);
 
+        // once you have reached destination, kill motors and return true
         if (Math.abs(get_right_front_drive_motor_enc()) >= TARGET_ENC) {
             leftFrontDriveMotor.setPower(0);
             leftBackDriveMotor.setPower(0);
@@ -268,5 +276,9 @@ public class BaseRobot extends OpMode {
         }
         return armClampMotor.getCurrentPosition();
     }
+    public boolean checkBlack(int red, int blue) {
+        return blue > (3.0/4)*red;
+    }
 }
+
 

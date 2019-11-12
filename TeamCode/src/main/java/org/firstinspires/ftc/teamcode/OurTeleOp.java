@@ -60,16 +60,16 @@ public class OurTeleOp extends BaseRobot {
         tankanum_drive(gamepad1.right_stick_y,gamepad1.left_stick_y, gamepad1.right_stick_x);
 
 
-        //lower or raise lift motor
+        //lower or raise first rack and pinion
         if(gamepad1.dpad_up || gamepad1.b) {
-            setArmLiftMotor(1);
-        } else if (gamepad1.dpad_down || gamepad1.a) {
             setArmLiftMotor(-1);
+        } else if (gamepad1.dpad_down || gamepad1.a) {
+            setArmLiftMotor(1);
         } else {
             setArmLiftMotor(0);
         }
 
-        //slide motor
+        // second rack and pinion
         if(gamepad1.dpad_left || gamepad1.x) {
             setArmLiftMotor2(1);
         } else if (gamepad1.dpad_right || gamepad1.y) {
