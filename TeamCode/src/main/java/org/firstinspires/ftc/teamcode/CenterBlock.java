@@ -13,7 +13,7 @@ public class CenterBlock extends BaseRobot {
 
     ElapsedTime elapsedTime = new ElapsedTime();
     ElapsedTime elapsedTime2 = new ElapsedTime();
-    PixyBlockList stone;
+    PixyBlockList blocks1;
     boolean isCentered = false;
     boolean isCloseEnough = false;
     PrintWriter file;
@@ -38,8 +38,8 @@ public class CenterBlock extends BaseRobot {
         // Update every tenth of a second.
         if (elapsedTime.milliseconds() > 100) {
             elapsedTime.reset();
-            stone = pixyCam.getBiggestBlocks(1);
-            telemetry.addData("Counts", "%d/%d/%d", stone.totalCount);
+            blocks1 = pixyCam.getBiggestBlocks(1);
+            telemetry.addData("Counts", "%d/%d/%d", blocks1.totalCount);
             file.println("----------------------------");
             file.format("Elapsed: %s Counts: %d/%d\n", elapsedTime2.toString());
             /*
