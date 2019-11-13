@@ -62,7 +62,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
     once reached, internal function sets motor power to 0, and we reset encoders, and we move to next stage
 */
 @Autonomous
-@Disabled
 
 public class ColorAutonomous1 extends BaseRobot {
     private int stage = 0;
@@ -90,21 +89,36 @@ public class ColorAutonomous1 extends BaseRobot {
             case 0:
                 if (auto_drive(1, distanceToBlocks)) {
                     reset_drive_encoders();
+                    stage++;
                 }
 
             case 1:
-               /*while (auto_mecanum(1, 50)) {
-                    if (checkBlack(redColor, blueColor)) {
+               //if (some_boolean) is the same as saying if(some_boolean==true)
+
+               // while you haven't reached the destination, keep checking for color
+                boolean success = false; // default is failure condition (you havent found the color)
+                while (!auto_mecanum(1, 50)) { // same as while auto_mec == false
+                    // if you find the color, you are in success condition
+                    if (checkBlackColor(redColor, blueColor)) {
+                        success = true;
                         reset_drive_encoders();
-                        stage++;
-                    } // else if auto mecanum -1 and 50 then reset encoders and stage =1
+                        break;
+                    }
                 }
-                if (auto_mecanum(-1, 50)) {
+
+                if (success) {
+                    // move to the next stage
+                    stage++;
+
+                } else { // if not success, stage remains at 1
+                    while (!auto_mecanum(-1,50)){
+                        ;// do nothing while it moves back and then tries again next super.loop
+                    }
+                }
+                /*if (auto_mecanum(-1, 50)) {
                     reset_drive_encoders();
                     stage = 1;
                 }
-
-                OR*/
 
                 if (auto_mecanum(1, 50) || checkBlackColor(redColor, blueColor)) {
                     stage++;
@@ -112,18 +126,26 @@ public class ColorAutonomous1 extends BaseRobot {
                 } else if (auto_mecanum(-1, 50)) {
                     stage = 1;
                     reset_drive_encoders();
-                }
+                }*/
 
 
 
             case 2:
-                // adjust where its going
+                // adjust the robot to the block
                 if (auto_drive(0.2, 5)) {
                     reset_drive_encoders();
+                    stage++;
                 }
 
             case 3:
+                armLiftMotor.setTargetPosition(100);
+                armClampMotor.setTargetPosition(0);
+                armLiftMotor.setTargetPosition(0);
+                stage++;
+                // move arm down, pickup block, move arm up
 
+            case 4:
+                
 
 
             // while ongoing stage, cases will return false -> break -> next iteration of loops
