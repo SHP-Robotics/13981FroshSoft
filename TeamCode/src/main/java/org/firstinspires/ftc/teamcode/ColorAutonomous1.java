@@ -66,10 +66,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 public class ColorAutonomous1 extends BaseRobot {
     private int stage = 0;
 
-    private int redColor = 12;
-    private int blueColor = 50;
-
-    private int distanceToBlocks = 20;
 
     @Override
     public void init() {
@@ -85,73 +81,91 @@ public class ColorAutonomous1 extends BaseRobot {
     public void loop() {
         super.loop();
         switch (stage) {
+
             // Drive forward from the corner and stop
             case 0:
-                if (auto_drive(1, distanceToBlocks)) {
+                if (auto_drive(1, 30)) {
                     reset_drive_encoders();
                     stage++;
                 }
-
+                break;
             case 1:
-               //if (some_boolean) is the same as saying if(some_boolean==true)
-
-               // while you haven't reached the destination, keep checking for color
-                boolean success = false; // default is failure condition (you havent found the color)
-                while (!auto_mecanum(1, 50)) { // same as while auto_mec == false
+                // while you haven't reached the destination, keep checking for color
+                /*while (!auto_mecanum(0.3, 50)) { // same as while auto_mec == false
                     // if you find the color, you are in success condition
-                    if (checkBlackColor(redColor, blueColor)) {
-                        success = true;
+                    if (checkBlackColor(colorBlock.red(), colorBlock.blue())) {
                         reset_drive_encoders();
+                        stage++;
                         break;
                     }
-                }
-
-                if (success) {
-                    // move to the next stage
-                    stage++;
-
-                } else { // if not success, stage remains at 1
-                    while (!auto_mecanum(-1,50)){
-                        ;// do nothing while it moves back and then tries again next super.loop
+                }*/
+                if (auto_mecanum(-0.5, 35)) {
+                    if (auto_mecanum(0.5, 35)) {
+                        reset_drive_encoders();
+                        stage++;
                     }
                 }
-                /*if (auto_mecanum(-1, 50)) {
+              /*  }
+                if (checkBlackColor(colorBlock.red(), colorBlock.blue())) {
                     reset_drive_encoders();
-                    stage = 1;
-                }
-
-                if (auto_mecanum(1, 50) || checkBlackColor(redColor, blueColor)) {
                     stage++;
-                    reset_drive_encoders();
-                } else if (auto_mecanum(-1, 50)) {
-                    stage = 1;
-                    reset_drive_encoders();
                 }*/
+                    break;
+               /* if (checkBlackColor(colorBlock.red(), colorBlock.blue())) {
+                    auto_mecanum(0, 0);
+                    reset_drive_encoders();
+                    stage++;
+                }
+                else auto_mecanum(0.5, 50);*/
 
-
-
-            case 2:
+          /*  case 2:
                 // adjust the robot to the block
                 if (auto_drive(0.2, 5)) {
                     reset_drive_encoders();
                     stage++;
                 }
+                break;
 
             case 3:
-                armLiftMotor.setTargetPosition(100);
-                armClampMotor.setTargetPosition(0);
-                armLiftMotor.setTargetPosition(0);
-                stage++;
-                // move arm down, pickup block, move arm up
+                // move clamp down
+                if (get_armClampMotor_enc() >= 400) {
+                    setArmClampMotor(0);
+                    reset_armClampMotor_encoders();
+                    stage++;
+                } else setArmClampMotor(0.5);
+                break;
 
             case 4:
-                
-
-
-            // while ongoing stage, cases will return false -> break -> next iteration of loops
-            default:
+            if (auto_drive(-0.2, 15)) {
+                reset_drive_encoders();
+                stage++;
+            }
                 break;
-        }
+
+            case 5:
+                if (auto_turn(1, 90)) {
+                    reset_drive_encoders();
+                    stage++;
+                }
+                break;
+
+            case 6:
+                if (auto_drive(1, 50)) {
+                    reset_drive_encoders();
+                }
+                break;
+
+            case 7:
+                if (get_armClampMotor_enc() <= -400) {
+                    setArmClampMotor(0);
+                    reset_armClampMotor_encoders();
+                }
+
+
+            // while ongoing stage, cases will return false -> break -> next iteration of loops*/
+                    default:
+                        break;
+                }
     }
 }
 //move sideways and scan

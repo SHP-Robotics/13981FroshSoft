@@ -279,6 +279,10 @@ public class BaseRobot extends OpMode {
         }
         return armClampMotor.getCurrentPosition();
     }
+    public void reset_armClampMotor_encoders() {
+        armClampMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armClampMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
 }
 
 
