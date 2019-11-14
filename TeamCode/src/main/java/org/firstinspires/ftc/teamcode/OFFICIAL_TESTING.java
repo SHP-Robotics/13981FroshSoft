@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.util.Range;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.MissingFormatArgumentException;
 
 /**
  * Source code brought in from:
@@ -57,6 +58,7 @@ public class OFFICIAL_TESTING extends OpMode {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
     }
 
     /*

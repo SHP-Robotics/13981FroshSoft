@@ -60,9 +60,9 @@ public class OurTeleOp extends BaseRobot {
 
         //lower or raise lift motor
         if(gamepad1.dpad_up || gamepad1.b) {
-            setArmLiftMotor(1);
-        } else if (gamepad1.dpad_down || gamepad1.a) {
             setArmLiftMotor(-1);
+        } else if (gamepad1.dpad_down || gamepad1.a) {
+            setArmLiftMotor(1);
         } else {
             setArmLiftMotor(0);
         }

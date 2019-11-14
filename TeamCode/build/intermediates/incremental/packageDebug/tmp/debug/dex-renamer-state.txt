@@ -1,11 +1,4 @@
-<<<<<<< Updated upstream
-#Tue Sep 17 20:50:58 PDT 2019
+#Tue Nov 12 16:12:10 PST 2019
 base.0=C\:\\Users\\benco\\Documents\\SHP\\FTC\\13981FroshSoft\\TeamCode\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
-=======
-#Mon Nov 11 15:32:39 PST 2019
-base.0=C\:\\Users\\ayaan\\Documents\\GitHub\\13981FroshSoft\\TeamCode\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
-path.1=classes.dex
-renamed.1=classes2.dex
->>>>>>> Stashed changes
 path.0=classes.dex
 renamed.0=classes.dex

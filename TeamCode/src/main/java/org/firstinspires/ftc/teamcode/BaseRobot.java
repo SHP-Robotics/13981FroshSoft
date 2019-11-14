@@ -25,6 +25,10 @@ public class BaseRobot extends OpMode {
         armLiftMotor2 = hardwareMap.get(DcMotor.class, "armLiftMotor2");
         armClampMotor = hardwareMap.get(DcMotor.class, "armClampMotor");
         armClampOpenSensor = hardwareMap.get(DigitalChannel.class,"armClampOpenSensor");
+        leftBackDriveMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBackDriveMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFrontDriveMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFrontDriveMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     @Override
