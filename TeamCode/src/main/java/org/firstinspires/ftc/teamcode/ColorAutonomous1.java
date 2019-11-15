@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
-
 // Template created by Chun on 1/26/19 for 10023. Made by Team 13981 on 10/11/19
 
 
@@ -117,7 +116,8 @@ public class ColorAutonomous1 extends BaseRobot {
                     stage++;
                 }
                 else auto_mecanum(-0.3, 47);
-break;
+                break;
+
             case 2:
                 // adjust the robot to the block
                 if (auto_drive(0.2, 3)) {
@@ -128,17 +128,11 @@ break;
 
             case 3:
                 // move clamp down
-                /*if (get_armClampMotor_enc() >= 400) {
                     setArmClampMotor(1);
-                    reset_armClampMotor_encoders();
                     stage++;
-                } else setArmClampMotor(0.5);*/
-                setArmClampMotor(1);
-                stage++;
                 break;
-
             case 4:
-            if (auto_drive(-0.5, 15)) {
+            if (auto_drive(-0.3, 15)) {
                 reset_drive_encoders();
                 stage++;
             }
@@ -164,7 +158,7 @@ break;
                     setArmClampMotor(0);
                     reset_armClampMotor_encoders();
                 }
-
+                break;
 
             // while ongoing stage, cases will return false -> break -> next iteration of loops*/
                     default:
