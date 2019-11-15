@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 /*
     Other team: will be moving loading zone
     TODO: - declare variable, set variable to encoder value of motor in order to track distance
-          - do 0.2 power for auto drive so it will line up properly (it just works with it)
+          - do 0.2 power for auto drive/mecanum so it will line up properly (it just works with it)
 
     One camera for blocks (color) [ could also be angled to see ground for loading zone ]
     One camera for what you are holding (is holding / is not holding)
@@ -84,14 +84,14 @@ public class ColorAutonomous1 extends BaseRobot {
 
             // Drive forward from the corner and stop
             case 0:
-                if (auto_drive(1, 30)) {
+                if (auto_drive(1, 28)) {
                     reset_drive_encoders();
                     stage++;
                 }
                 break;
             case 1:
                 // while you haven't reached the destination, keep checking for color
-                /*while (!auto_mecanum(0.3, 50)) { // same as while auto_mec == false
+              /*  while (!auto_mecanum(0.3, 50)) { // same as while auto_mec == false
                     // if you find the color, you are in success condition
                     if (checkBlackColor(colorBlock.red(), colorBlock.blue())) {
                         reset_drive_encoders();
@@ -99,28 +99,28 @@ public class ColorAutonomous1 extends BaseRobot {
                         break;
                     }
                 }*/
-                if (auto_mecanum(-0.5, 35)) {
-                    if (auto_mecanum(0.5, 35)) {
+               /* if (auto_mecanum(-0.3, 47)) {
+                    if (auto_mecanum(0.3, 47)) {
                         reset_drive_encoders();
                         stage++;
                     }
-                }
+                }*/
               /*  }
                 if (checkBlackColor(colorBlock.red(), colorBlock.blue())) {
                     reset_drive_encoders();
                     stage++;
                 }*/
-                    break;
-               /* if (checkBlackColor(colorBlock.red(), colorBlock.blue())) {
+
+                if (checkBlackColor(colorBlock.red(), colorBlock.blue())) {
                     auto_mecanum(0, 0);
                     reset_drive_encoders();
                     stage++;
                 }
-                else auto_mecanum(0.5, 50);*/
-
-          /*  case 2:
+                else auto_mecanum(-0.3, 47);
+break;
+            case 2:
                 // adjust the robot to the block
-                if (auto_drive(0.2, 5)) {
+                if (auto_drive(0.2, 3)) {
                     reset_drive_encoders();
                     stage++;
                 }
@@ -128,22 +128,24 @@ public class ColorAutonomous1 extends BaseRobot {
 
             case 3:
                 // move clamp down
-                if (get_armClampMotor_enc() >= 400) {
-                    setArmClampMotor(0);
+                /*if (get_armClampMotor_enc() >= 400) {
+                    setArmClampMotor(1);
                     reset_armClampMotor_encoders();
                     stage++;
-                } else setArmClampMotor(0.5);
+                } else setArmClampMotor(0.5);*/
+                setArmClampMotor(1);
+                stage++;
                 break;
 
             case 4:
-            if (auto_drive(-0.2, 15)) {
+            if (auto_drive(-0.5, 15)) {
                 reset_drive_encoders();
                 stage++;
             }
                 break;
 
             case 5:
-                if (auto_turn(1, 90)) {
+                if (auto_turn(1, 100)) {
                     reset_drive_encoders();
                     stage++;
                 }
@@ -152,11 +154,13 @@ public class ColorAutonomous1 extends BaseRobot {
             case 6:
                 if (auto_drive(1, 50)) {
                     reset_drive_encoders();
+                    stage++;
                 }
                 break;
 
             case 7:
-                if (get_armClampMotor_enc() <= -400) {
+                setArmClampMotor(-1);
+                if (get_armClampMotor_enc() <= -800) {
                     setArmClampMotor(0);
                     reset_armClampMotor_encoders();
                 }
