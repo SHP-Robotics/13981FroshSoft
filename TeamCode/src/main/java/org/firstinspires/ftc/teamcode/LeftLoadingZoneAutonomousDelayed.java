@@ -25,7 +25,7 @@ public class LeftLoadingZoneAutonomousDelayed extends BaseRobot {
         switch (stage) {
 
             case 0 :
-                if (timer.seconds() >= 15) {
+                if (timer.seconds() >= 14) {
                     if (auto_drive(0.5, 35)) {
                         setArmClampMotor(1);
                         reset_drive_encoders();

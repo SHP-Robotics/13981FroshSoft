@@ -85,7 +85,7 @@ public class LeftBlocksAutonomous extends BaseRobot {
 
             // Drive forward from the corner and stop
             case 0:
-                if (auto_drive(1, 28)) {
+                if (auto_drive(1, 27)) {
                     reset_drive_encoders();
                     stage++;
                 }
@@ -144,6 +144,7 @@ public class LeftBlocksAutonomous extends BaseRobot {
             case 7:
                 if (timer.seconds() > 2) {
                     if (auto_drive(-1, 15)) {
+                        setArmClampMotor(0);
                         reset_drive_encoders();
                         reset_armClampMotor_encoders();
                         reset_armLftMotor_encoders();
@@ -152,7 +153,6 @@ public class LeftBlocksAutonomous extends BaseRobot {
                     }
                 }
                 break;
-
                     default:
                         break;
                 }
