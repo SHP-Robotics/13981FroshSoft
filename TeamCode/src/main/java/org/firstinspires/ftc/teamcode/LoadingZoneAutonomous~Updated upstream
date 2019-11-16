@@ -1,0 +1,63 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+@Autonomous
+public class LoadingZoneAutonomous extends BaseRobot {
+    private int stage;
+    @Override
+    public void init() {
+        super.init();
+    }
+
+    @Override
+    public void start() {
+        super.start();
+    }
+
+    @Override
+    public void loop() {
+        super.loop();
+<<<<<<< Updated upstream:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/LoadingZoneAutonomous
+            switch (stage) {
+                case 0 :
+                    if (auto_drive(0.9,35)){
+=======
+        switch (stage) {
+
+            case 0 :
+                if (timer.seconds() >= 14) {
+                    if (auto_drive(0.5, 35)) {
+>>>>>>> Stashed changes:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/RightLoadingZoneAutonomousDelayed.java
+                        setArmClampMotor(1);
+                        reset_drive_encoders();
+                        stage++;
+                    }
+                    break;
+                case 1:
+                    if(auto_drive(-0.9,35)){
+                        setArmClampMotor(0);
+                        reset_drive_encoders();
+                        stage++;
+                    }
+                    break;
+                case 2:
+                    if(auto_mecanum(-0.6,10)){
+                        reset_drive_encoders();
+                        stage++;
+                    }
+                case 3:
+                    if(auto_turn(1,-85)){
+                        reset_drive_encoders();
+                        stage++;
+                    }
+                    break;
+                case 4:
+                    if (auto_drive(1,15)){
+                        reset_drive_encoders();
+
+                    }
+                    break;
+
+            }
+        }
+    }
