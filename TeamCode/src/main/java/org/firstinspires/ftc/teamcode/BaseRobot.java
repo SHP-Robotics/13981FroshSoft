@@ -10,7 +10,7 @@ public class BaseRobot extends OpMode {
 
     public DcMotor leftBackDriveMotor, rightBackDriveMotor, leftFrontDriveMotor, rightFrontDriveMotor, armLiftMotor, armLiftMotor2, armClampMotor;
     // public Servo armRight_servo, armLeft_servo;
-    public ColorSensor colorBlock;
+    public ColorSensor colorBlock;/*flashLight;*/
     public ElapsedTime timer = new ElapsedTime();
     //Created by Chun on 1/26/19 for 10023. Adapted by Team 13981.
 
@@ -43,6 +43,7 @@ public class BaseRobot extends OpMode {
         reset_armLftMotor_encoders();
         reset_armLiftMotor2_encoders();
         colorBlock.enableLed(true);
+       // flashLight.enableLed(true);
 
     }
 
